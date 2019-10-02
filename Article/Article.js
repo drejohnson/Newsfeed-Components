@@ -1,3 +1,5 @@
+import createElement from '../lib/createElement.js'
+
 /* This is the data we will be using to create our article components */
 /* Look over this data, then proceed to line 91*/
 const data = [
@@ -85,6 +87,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Hello from Shanghai',
+    date: 'Oct 3rd, 2019',
+    firstParagraph: `PDeserunt pariatur enim aliquip sunt eiusmod ipsum ad voluptate nulla quis dolore cillum irure elit. Quis sit eiusmod aliquip exercitation veniam adipisicing est mollit adipisicing. Ut duis eu proident nisi. Anim exercitation proident amet nostrud aute adipisicing nulla. Ut sit incididunt nulla enim eu ea aliquip pariatur nostrud sint non elit.`,
+
+    secondParagraph: `Dolor qui voluptate ipsum nisi proident excepteur ipsum mollit labore quis tempor. Sit qui duis veniam anim veniam cillum cillum eu excepteur aliquip deserunt nulla. Anim nulla velit veniam laboris eu occaecat. Et anim aliquip commodo et. Eiusmod velit sint sint nulla nostrud in elit consequat tempor. Excepteur cupidatat fugiat Lorem duis adipisicing quis culpa ipsum dolor in dolor et do aliqua. Laboris est cillum sint fugiat tempor do pariatur ipsum nisi exercitation laborum nostrud.`,
+
+    thirdParagraph: `Irure esse ipsum voluptate quis tempor eiusmod est ipsum cupidatat. Sint non quis voluptate nulla ipsum nisi Lorem velit enim do laboris. In nulla ullamco aliqua cillum incididunt non commodo officia ut culpa dolor sunt. Ea anim non eu minim laborum fugiat aliquip dolore nostrud minim anim consectetur. Lorem reprehenderit labore pariatur consequat proident eiusmod cillum dolore proident pariatur occaecat deserunt exercitation. Cupidatat cillum cillum esse nulla proident ex ex aliquip ullamco enim Lorem commodo.`
   }
 ];
 
@@ -112,3 +123,26 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articles = document.querySelector('.articles')
+
+const { div, h2, p, span } = createElement()
+function createArticle(title, date, p1, p2, p3) {
+  // define new elements
+ const article = div({class: 'article'}, [
+   h2({}, title),
+   p({class: 'date'}, date),
+   p({}, p1),
+   p({}, p2),
+   p({}, p3),
+   span({class: 'expandButton', onClick: e => {
+     e.target.parentNode.classList.toggle('article-open')
+   }}, 'Expand')
+ ])
+  return article
+}
+
+data.map(post => {
+  const article = createArticle(post.title, post.date, post.firstParagraph, post.secondParagraph, post.thirdParagraph)
+  articles.appendChild(article)
+})
