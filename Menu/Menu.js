@@ -1,3 +1,5 @@
+import createElement from '../lib/createElement.js'
+
 /* This is the data we will be using, study it but don't change anything, yet. */
 
 let menuItems = [
@@ -33,3 +35,28 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+const header = document.querySelector('.header')
+const menuBtn = document.querySelector('.menu-button')
+
+const { div, ul, li } = createElement()
+
+const list = menuItems.map(item => li({}, item))
+
+function createMenu() {
+  // define new elements
+  const menu = div({class: 'menu'}, [
+    ul({}, list),
+  ])
+  return menu
+}
+
+const unorderedList = createMenu()
+
+header.appendChild(unorderedList)
+
+const menu = document.querySelector('.menu')
+
+menuBtn.addEventListener('click', e => {
+  menu.classList.toggle('menu--open')
+})
