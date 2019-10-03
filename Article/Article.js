@@ -126,7 +126,7 @@ const data = [
 
 const articles = document.querySelector('.articles')
 
-const { div, h2, p, span } = createElement()
+const { div, h2, p, span, button } = createElement()
 function createArticle(title, date, p1, p2, p3) {
   // define new elements
  const article = div({class: 'article'}, [
@@ -137,7 +137,8 @@ function createArticle(title, date, p1, p2, p3) {
    p({}, p3),
    span({class: 'expandButton', onClick: e => {
      e.target.parentNode.classList.toggle('article-open')
-   }}, 'Expand')
+   }}, 'Expand'),
+   button({class: 'article-read'}, 'Read')
  ])
   return article
 }
@@ -145,4 +146,11 @@ function createArticle(title, date, p1, p2, p3) {
 data.map(post => {
   const article = createArticle(post.title, post.date, post.firstParagraph, post.secondParagraph, post.thirdParagraph)
   articles.appendChild(article)
+})
+
+articles.addEventListener('click', e => {
+  if (e.target.className === 'article-read') {
+    const parent = e.target.parentNode
+    parent.parentNode.removeChild(parent)
+  }
 })
